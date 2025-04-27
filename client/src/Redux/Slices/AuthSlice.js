@@ -1,0 +1,84 @@
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import toast from "react-hot-toast";
+import axiosInstance from "../../Helpers/axiousInstance";
+
+
+const initialState = {
+    isLoggedIn: localStorage.getItem('isLoggedIn') === 'true',
+    role: localStorage.getItem('role') || "",
+    data: JSON.parse(localStorage.getItem('data')) || {},
+};
+
+export const register = createAsyncThunk(
+    "/auth/signup", async (data, { rejectWithValue }) => {
+        try {
+            console.log("upper", data)
+
+            const response = await axiosInstance.post("/api/auth/signup", data);
+            console.log(data)
+
+            toast.success(response?.data?.message || "User created successfully!");
+            return response.data;
+
+        } catch (error) {
+            const message = error?.response?.data?.message || "Failed to create user";
+            toast.error(message);
+            return rejectWithValue(message);
+        }
+    }
+);
+
+export const login = createAsyncThunk(
+    "/auth/login",
+    async (data, { rejectWithValue }) => {
+        try {
+            const res = await axiosInstance.post("/api/auth/login", data);
+            toast.success(res?.data?.message || "Login successful!");
+            return res.data;
+        } catch (error) {
+            const message = error?.response?.data?.message || "Login failed";
+            toast.error(message);
+            return rejectWithValue(message);
+        }
+    }
+);
+
+export const logout = createAsyncThunk(
+    "/auth/logout",
+    async () => {
+        try {
+            const res = await axiosInstance.post("");
+            toast.success(res?.data?.message || "Logged out successfully!");
+            return res.data;
+        } catch (error) {
+            const message = error?.response?.data?.message || "Logout failed";
+            toast.error(message);
+            throw error;
+        }
+    }
+);
+
+const authSlice = createSlice({
+    name: "auth",
+    initialState,
+    reducers: {},
+    extraReducers: (builder) => {
+        builder
+            .addCase(login.fulfilled, (state, action) => {
+                const user = action?.payload?.user;
+
+                localStorage.setItem("data", JSON.stringify(user));
+                localStorage.setItem("isLoggedIn", "true");
+                localStorage.setItem("role", user?.role || "");
+
+                state.isLoggedIn = true;
+                state.data = user;
+                state.role = user?.role || "";
+            });
+
+
+
+    },
+});
+
+export default authSlice.reducer;
