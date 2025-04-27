@@ -23,11 +23,11 @@ const userSchema = new mongoose.Schema({
         default: "user",
     },
     image:{
-        public_url:{
+        public_id:{
             type: String,
             default: "https://res.cloudinary.com/dqj0xgk8v/image/upload/v1698231234/blank-profile-picture-973460_640_ojxq5c.png",
         },
-        id:{
+        secure_url:{
             type: String,
             default: "blank-profile-picture-973460_640",
         }
@@ -37,7 +37,7 @@ const userSchema = new mongoose.Schema({
         default: "Not provided",
         required: true,
     },
-    phone: {
+    phoneNumber: {
         type: String,
         required: true,
     },

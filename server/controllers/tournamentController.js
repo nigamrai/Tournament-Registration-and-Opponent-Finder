@@ -3,7 +3,7 @@ import Tournament from "../models/tournament.model";
 const registerTournament = async (req, res) => {
     const { title,  location, description,sport,startDate,endDate,maxTeams,numberOfPlayers,groundStyle,registrationAmount,priceDetails,
         rules,organizedBy,tournamentFormat,days,type } = req.body;
-    if (!title || !sport || !startDate || !endDate || !location || !maxTeams || !numberOfPlayers || !groundStyle || !registrationAmount || !priceDetails || !rules || !organizedBy || !tournamentFormat || !days || !type) {
+    if (!description|| !title || !sport || !startDate || !endDate || !location || !maxTeams || !numberOfPlayers || !groundStyle || !registrationAmount || !priceDetails || !rules || !organizedBy || !tournamentFormat || !days || !type) {
 
         return res.status(400).json({ message: "All fields are required" });
     }

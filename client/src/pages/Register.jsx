@@ -1,10 +1,8 @@
-import React from 'react';
-import { useState, useRef } from 'react';
+import React, { useRef, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
 import BackgroundImage from '../assets/viber.webp';
-import logo from '../assets/logo.png';
 import { register } from '../Redux/Slices/AuthSlice';
 
 function Register() {
@@ -21,7 +19,6 @@ function Register() {
         address: "",
         role: "user",
         password: "",
-        confirmPassword: "",
     });
 
     const handleChange = (e) => {
@@ -59,7 +56,7 @@ function Register() {
 
         const data = new FormData();
         Object.entries(formData).forEach(([key, value]) => data.append(key, value));
-        data.append("profilePic", profileImage);
+        data.append("image", profileImage);
 
         try {
             const response = await dispatch(register(data));

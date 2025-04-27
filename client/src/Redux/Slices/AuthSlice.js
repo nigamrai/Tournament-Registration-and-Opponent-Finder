@@ -14,7 +14,7 @@ export const register = createAsyncThunk(
         try {
             console.log("upper", data)
 
-            const response = await axiosInstance.post("/api/auth/register", data);
+            const response = await axiosInstance.post("/api/auth/signup", data);
             console.log(data)
 
             toast.success(response?.data?.message || "User created successfully!");

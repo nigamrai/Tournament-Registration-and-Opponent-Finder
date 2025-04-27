@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
-import User from "../models/User.js";
+import cloudinary from "cloudinary";
+import User from "../models/user.mode.js";
 import JwtService from "../utils/jwtUtils.js";
 const cookieOptions = {
     maxAge: 24 * 60 * 60 * 1000, // 1 day
@@ -25,36 +26,37 @@ const login=async (req, res) => {
     return res.status(200).json({ success: true,message:"User logged in successfully" ,user: user,token });  
 }
 const signup=async (req, res) => {
-    const { name, email, password,address,role} = req.body;
-    if (!name || !email || !password || !address || !role) {
+    const { name, email, password,address,role,phoneNumber} = req.body;
+    if (!name || !email || !password || !address || !role ||!phoneNumber) {
         return res.status(400).json({ message: "All fields are required" });
     }
     const existingUser = await User.findOne({ email });
     if (existingUser) {
         return res.status(400).json({ message: "User already exists" });
     }
-    const user = new User({ name, email, password ,address, role });
+    const user = new User({ name, email, password ,address, role ,phoneNumber});
     const hashedPassword = await bcrypt.hash(password,10);
     user.password = hashedPassword;
-    await user.save();
+    
     if(req.file){
       try{
-        const result = await cloudinary.uploader.upload(req.file.path, {
+        const result = await cloudinary.v2.uploader.upload(req.file.path, {
             folder: "TRAOF",
             width: 150,
             height: 150,
             crop: "fill",
         });
-        user.image.public_url = result.secure_url;
-        user.image.id = result.public_id;
+        user.image.public_id = result.public_id;
+        user.image.secure_url = result.secure_url;
        
       }catch(error){
         return res.status(500).json({ message: "Image upload failed", error });
       }
     }
+    
     await user.save();
     
-    return res.status(201).json({ success: true,message:"User created successfully" ,user,token });
+    return res.status(201).json({ success: true,message:"User created successfully" ,user});
 }
 export { login, signup };
 
