@@ -7,6 +7,9 @@ const initialState = {
     isLoggedIn: localStorage.getItem('isLoggedIn') === 'true',
     role: localStorage.getItem('role') || "",
     data: JSON.parse(localStorage.getItem('data')) || {},
+    loading: false,
+    error: null,
+    tournamentData: null,
 };
 
 export const register = createAsyncThunk(
@@ -58,6 +61,28 @@ export const logout = createAsyncThunk(
     }
 );
 
+export const createTournament = createAsyncThunk(
+    "/auth/create", async (data, { rejectWithValue }) => {
+        try {
+            console.log("tournament form data", data)
+
+            const response = await axiosInstance.post("/api/auth/create", data);
+            console.log(data)
+
+            toast.success(response?.data?.message || "Tournament created successfully!");
+            return response.data;
+
+        } catch (error) {
+            const message = error?.response?.data?.message || "Failed to create Tournament";
+            toast.error(message);
+            return rejectWithValue(message);
+        }
+    }
+);
+
+
+
+
 const authSlice = createSlice({
     name: "auth",
     initialState,
@@ -74,7 +99,29 @@ const authSlice = createSlice({
                 state.isLoggedIn = true;
                 state.data = user;
                 state.role = user?.role || "";
+            })
+
+            .addCase(logout.fulfilled, (state) => {
+                localStorage.clear();
+                state.data = {};
+                state.isLoggedIn = false;
+                state.role = "";
+
+            })
+
+            .addCase(createTournament.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(createTournament.fulfilled, (state, action) => {
+                state.loading = false;
+                state.tournamentData = action.payload;
+            })
+            .addCase(createTournament.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
             });
+
+
 
 
 
