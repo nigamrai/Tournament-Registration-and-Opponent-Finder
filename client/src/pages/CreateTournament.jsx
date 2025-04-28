@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { createTournament } from '../Redux/Slices/AuthSlice';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import HomeLayout from '../layouts/homeLayout';
 
 function CreateTournament() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { loading, error } = useSelector((state) => state.auth);
-
+    const user = JSON.parse(localStorage.getItem("data"));
     const [tournamentData, setTournamentData] = useState({
         title: '',
         description: '',
+        createdBy: user._id,
         image: null,
         organizer: '',
         location: '',
@@ -71,7 +71,8 @@ function CreateTournament() {
     }, [error]);
 
     return (
-        <div className="max-w-4xl mx-auto p-6">
+        <HomeLayout>
+            <div className="max-w-4xl mx-auto p-6">
             <div className="mb-8">
                 <h1 className="text-2xl font-bold">Create Tournament</h1>
                 <p className="text-gray-600">Fill in the details to create a new tournament</p>
@@ -96,16 +97,14 @@ function CreateTournament() {
 
                     <div className="mb-4">
                         <label className="block mb-2">Description:-</label>
-                        <div className="border rounded-md">
-                            <CKEditor
-                                editor={ClassicEditor}
-                                data={tournamentData.description}
-                                onChange={(event, editor) => {
-                                    const data = editor.getData();
-                                    setTournamentData(prev => ({ ...prev, description: data }));
-                                }}
-                            />
-                        </div>
+                        <textarea
+                            name="description"
+                            value={tournamentData.description}
+                            onChange={handleInputChange}
+                            className="w-full p-2 border border-gray-300 rounded"
+                            rows="5"
+                            required
+                        />
                     </div>
 
                     <div className="mb-4">
@@ -268,16 +267,14 @@ function CreateTournament() {
 
                     <div className="mb-4">
                         <label className="block mb-2">Tournament Rules:-</label>
-                        <div className="border rounded-md">
-                            <CKEditor
-                                editor={ClassicEditor}
-                                data={tournamentData.rules}
-                                onChange={(event, editor) => {
-                                    const data = editor.getData();
-                                    setTournamentData(prev => ({ ...prev, rules: data }));
-                                }}
-                            />
-                        </div>
+                        <textarea
+                            name="rules"
+                            value={tournamentData.rules}
+                            onChange={handleInputChange}
+                            className="w-full p-2 border border-gray-300 rounded"
+                            rows="5"
+                            required
+                        />
                     </div>
                 </div>
 
@@ -292,6 +289,7 @@ function CreateTournament() {
                 </div>
             </form>
         </div>
+        </HomeLayout>
     );
 }
 

@@ -1,14 +1,15 @@
 import cloudinary from 'cloudinary';
-import Tournament from "../models/tournament.model";
+import Tournament from "../models/tournament.model.js";
 const registerTournament = async (req, res) => {
-    const { title,  location, description,sport,startDate,endDate,maxTeams,numberOfPlayers,groundStyle,registrationAmount,priceDetails,
-        rules,organizedBy,tournamentFormat,days,type } = req.body;
-    if (!title || !sport || !startDate || !endDate || !location || !maxTeams || !numberOfPlayers || !groundStyle || !registrationAmount || !priceDetails || !rules || !organizedBy || !tournamentFormat || !days || !type) {
+    console.log(req.body)
+    const { title,  location, description,startDate,endDate,maxTeams,groundStyle,registrationFee,prizeDetails,
+        rules,format,createdBy } = req.body;
+    if (!description|| !title  || !startDate || !endDate || !location || !maxTeams  || !groundStyle || !registrationFee || !prizeDetails || !rules || !format ) {
 
         return res.status(400).json({ message: "All fields are required" });
     }
-    const tournament = new Tournament({ title, sport, startDate, endDate, location, maxTeams, numberOfPlayers, groundStyle, registrationAmount, priceDetails,
-        rules, organizedBy, tournamentFormat, days, type });
+    const tournament = new Tournament({ title, startDate, endDate, location, maxTeams, groundStyle, registrationAmount:registrationFee, priceDetails:prizeDetails,
+        rules,  tournamentFormat:format ,description,createdBy });
         if (!tournament) {
             return res.status(500).json({ message: "Tournament registration failed" });
         }
@@ -33,7 +34,7 @@ const registerTournament = async (req, res) => {
 }
 const getAllTournaments = async (req, res) => {
     try {
-        const tournaments = await Tournament.find({status:"upcoming"}).sort({ startDate: 1 });
+        const tournaments = await Tournament.find();
         if (!tournaments || tournaments.length === 0) {
             return res.status(404).json({ message: "No tournaments found" });
         }
@@ -42,5 +43,27 @@ const getAllTournaments = async (req, res) => {
         return res.status(500).json({ message: "Error fetching tournaments", error });
     }
 }
-export { registerTournament };
+const getTournamentById = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const tournaments = await Tournament.find({createdBy: id});
+      
+        if (!tournaments) {
+            return res.status(404).json({ message: "Tournament not found" });
+        }
+        return res.status(200).json({ success: true, tournaments });
+    } catch (error) {
+        return res.status(500).json({ message: "Error fetching tournament", error });
+    }
+}
+
+
+
+
+
+
+
+
+
+export { getAllTournaments, getTournamentById, registerTournament };
 

@@ -10,12 +10,17 @@ const tournamentSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
-    sport:{
-        type: String,
+    createdBy:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
         required: true,
-        enum: ['Football', 'Football', 'Basketball', 'Badminton', 'Hockey'],
-        default: 'Football',
     },
+    // sport:{
+    //     type: String,
+    //     required: true,
+    //     enum: ['Football', 'Football', 'Basketball', 'Badminton', 'Hockey'],
+    //     default: 'Football',
+    // },
     image:{
         public_url:{
             type: String,
@@ -42,10 +47,10 @@ const tournamentSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    numberOfPlayers:{
-        type: Number,
-        required: true,
-    },
+    // numberOfPlayers:{
+    //     type: Number,
+    //     required: true,
+    // },
     groundStyle:{
         type: String,
         enum:['5A', '6A','7A', '9A'],
@@ -56,7 +61,7 @@ const tournamentSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    prizeDetails:{
+    priceDetails:{
         type: String,
         required: true,
     },
@@ -64,31 +69,31 @@ const tournamentSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    organizedBy:{
-        type: String,
-        required: true,
-    },
+    // organizedBy:{
+    //     type: String,
+    //     required: true,
+    // },
     tournamentFormat:{
         type: String,
-        enum:['League', 'Knockout'],
+        enum:['league', 'Knockout'],
         default: 'Knockout',
         required: true,
     },
-    days:{
-        type: String,
-        enum:["1", "2", "3", "4", "5","6", "7"],
-        required: true,
-    },
-    type:{
-        type: String,
-        enum:["Open", "College", "School"],
-        required: true,
-    },
-    status:{
-        type: String,
-        enum:["Upcoming", "Ongoing", "Completed"],
-        default: "Upcoming",
-    },
+    // days:{
+    //     type: String,
+    //     enum:["1", "2", "3", "4", "5","6", "7"],
+    //     required: true,
+    // },
+    // type:{
+    //     type: String,
+    //     enum:["Open", "College", "School"],
+    //     required: true,
+    // },
+    // status:{
+    //     type: String,
+    //     enum:["Upcoming", "Ongoing", "Completed"],
+    //     default: "Upcoming",
+    // },
 
 })
 const Tournament = mongoose.model("Tournament", tournamentSchema);

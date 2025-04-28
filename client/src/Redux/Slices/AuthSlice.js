@@ -66,7 +66,7 @@ export const createTournament = createAsyncThunk(
         try {
             console.log("tournament form data", data)
 
-            const response = await axiosInstance.post("/api/auth/create", data);
+            const response = await axiosInstance.post("/api/tournament/create", data);
             console.log(data)
 
             toast.success(response?.data?.message || "Tournament created successfully!");
@@ -79,6 +79,30 @@ export const createTournament = createAsyncThunk(
         }
     }
 );
+
+export const getTournament = createAsyncThunk(
+    "course/getAllCourses",
+    async (_, { rejectWithValue }) => {
+        try {
+            // First, show loading state
+            toast.loading("Loading tournament");
+
+            const response = await axiosInstance.get("/api/auth/Tournament");
+
+            // Update toast to success
+            toast.success("Tournament loaded successfully");
+
+            console.log("API Response:", response.data);
+            return response?.data?.tournament || [];
+        } catch (error) {
+            const errorMessage = error?.response?.data?.message || "An unexpected error occurred";
+            toast.error(errorMessage);
+            return rejectWithValue(errorMessage);
+        }
+    }
+);
+
+
 
 
 
@@ -106,8 +130,8 @@ const authSlice = createSlice({
                 state.data = {};
                 state.isLoggedIn = false;
                 state.role = "";
-
             })
+
 
             .addCase(createTournament.pending, (state) => {
                 state.loading = true;
@@ -119,9 +143,19 @@ const authSlice = createSlice({
             .addCase(createTournament.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
+            })
+
+            .addCase(getTournament.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(getTournament.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                state.courses = action.payload;
+            })
+            .addCase(getTournament.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.payload;
             });
-
-
 
 
 

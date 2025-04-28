@@ -11,4 +11,8 @@ const upload=multer({
         },
 }),
 });
+export const uploadFields = Array.from({ length: 10 }, (_, index) => ({
+    name: `memberImage_${index}`,
+    maxCount: 1,
+  }));
 export default upload;
