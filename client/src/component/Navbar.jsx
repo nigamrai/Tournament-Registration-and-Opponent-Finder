@@ -2,6 +2,7 @@ import React from "react";
 import logo from "../assets/img/logo.png";
 import { Link } from "react-router-dom";
 import Tournament from "../pages/Tournament";
+import FindOpponent from "../pages/FindOpponent";
 
 
 const Navbar = () => {
@@ -26,7 +27,7 @@ const Navbar = () => {
         <div className="hidden sm:ml-6 sm:flex sm:space-x-4">
           <a href="/dashboard" className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
           <Link to="/tournament" className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Tournament</Link>
-          <a href="/FindOpponent" className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Find Opponent</a>
+          <Link to="/FindOpponent" className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Find Opponent</Link>
           <a href="/AdminDashboard" className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Admin Dashboard</a>
         </div>
       </div>
