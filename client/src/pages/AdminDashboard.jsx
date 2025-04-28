@@ -27,11 +27,11 @@ function AdminDashboard() {
         navigate("/tournamentDetails", { state: { tournament } });
     }
   
-
+    console.log(user._id)
     async function getMyTournament() {
         try {
             const response = await axiosInstance.get(`/api/tournament/${user._id}`);
-            console.log("my tournament", response.data.tournaments)
+            console.log("my tournament", response.data)
             if (response?.data?.success) {
                 setTournaments(response.data.tournaments);
             }

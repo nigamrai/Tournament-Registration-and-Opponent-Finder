@@ -1,6 +1,6 @@
 import cloudinary from "cloudinary"; // assuming you configured it
 import Participant from "../models/participants.model.js";
-
+import Tournament from "../models/tournament.model.js";
 const registerParticipant = async (req, res) => {
   try {
     const { teamName, userId, tournamentId } = req.body;
@@ -43,6 +43,13 @@ const registerParticipant = async (req, res) => {
     });
 
     await participant.save();
+    const tournament = await Tournament.findById(tournamentId);
+    console.log(tournament);
+    if (!tournament) {
+      return res.status(404).json({ message: "Tournament not found" });
+    }
+    tournament.numberOfRegisteredTeams += 1;
+    await tournament.save();
     return res.status(201).json({
       success: true,
       message: "Participant registered successfully",
@@ -53,6 +60,19 @@ const registerParticipant = async (req, res) => {
     return res.status(500).json({ success: false, message: "Server Error", error });
   }
 };
+const getParticipantsByTournamentId = async (req, res) => {
+  const { tournamentId } = req.params;
+  try {
+    const teams = await Participant.find({ tournamentId });
+    if (!teams || teams.length === 0) {
+      return res.status(404).json({ message: "No participants found" });
+    }
+    return res.status(200).json({ success: true, teams});
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ success: false, message: "Server Error", error });
+  }
+}
 
-export { registerParticipant };
+export { getParticipantsByTournamentId, registerParticipant };
 

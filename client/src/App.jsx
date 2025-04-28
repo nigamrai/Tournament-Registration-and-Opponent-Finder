@@ -5,11 +5,12 @@ import AdminDashboard from "./pages/AdminDashboard.jsx";
 import CreateTournament from "./pages/CreateTournament.jsx";
 import FindOpponent from "./pages/FindOpponent.jsx";
 import Login from "./pages/Login";
+import PlayerList from "./pages/PlayerList.jsx";
 import Register from "./pages/Register";
 import Registration from "./pages/Registration";
+import TeamList from "./pages/TeamList";
 import Tournament from "./pages/Tournament";
 import TournamentDetails from "./pages/TournamentDetails";
-
 function App() {
 
   return <>
@@ -24,7 +25,7 @@ function App() {
       <Route path="/registrationCard" element={<RegistrationCard />} />
       <Route path="/FindOpponent" element={<FindOpponent />} />
       <Route path="/tournament/create" element={<CreateTournament />} />
-      <Route path="/TeamList" element={<TeamList />} />
+      <Route path="/teamList" element={<TeamList />} />
       <Route path="/viewTeam" element={<PlayerList />} />
 
 

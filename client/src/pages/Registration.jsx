@@ -1,21 +1,21 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../component/Navbar";
 import RegistrationCars from "../component/RegistrationCars"; // small typo fixed (Cars -> Card)
 import axiosInstance from "../Helpers/axiousInstance";
+
 const Registration = () => {
 
   const navigate = useNavigate();
-  const user = useSelector((state) => state.auth.user);
+  const user = JSON.parse(localStorage.getItem("data"));
   const location = useLocation();
   const tournament = location.state?.tournament;
-
+ 
   const [formData, setFormData] = useState({
     teamName: "",
     tournamentId: tournament?._id || "",
-    userId: tournament?._id,
-    teamMembers: Array.from({ length: 10 }, () => ({
+    userId: user?._id || "",
+    teamMembers: Array.from({ length: 1 }, () => ({
       name: "",
       email: "",
       phone: "",
@@ -68,7 +68,7 @@ const Registration = () => {
       console.log(response.data);
       if (response.data.success) {
       
-        Navigate("/TeamList");
+        navigate("/teamList",{state:{tournament}});
       } else {
         alert("Registration failed. Please try again.");
       }

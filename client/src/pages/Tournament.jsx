@@ -18,7 +18,9 @@ const Tournament = () => {
             setTournamentData(response.data.tournaments);
         }
     }
-
+    const navigateToTeamList = (tournament) => {
+        navigate("/teamList", { state: { tournament } });
+    }
     useEffect(()=>{
        getAllTournaments();
     },[]) 
@@ -39,16 +41,21 @@ const Tournament = () => {
                             Location: {tournament.location}                       
                         </div>
                         <div className="text-sm text-gray mb-2">
-                            Format: {tournament.format}                       
+                            Format: {tournament.tournamentFormat}                       
                         </div>
                         <div className="text-sm text-gray mb-2">
                             Max Teams: {tournament.maxTeams}                       
                         </div>
+                        <div className="text-sm text-gray mb-2">
+                            No.of Registered Teams: {tournament.numberOfRegisteredTeams}                
+                        </div>
                         
                         <div className="flex justify-between items-center border-t pt-2">
-                            <span className="font-bold text-bold-600">{tournament.price}</span>
+                            <span className="font-bold text-bold-600">Rs. {tournament.registrationAmount}</span>
                             <button className="bg-indigo-600 text-white text-sm py-1 px-3 rounded hover:bg-blue-700"
                             onClick={()=>navigateToTournamentDetails(tournament)}>View Details</button>
+                            <button className="bg-indigo-600 text-white text-sm py-1 px-3 rounded hover:bg-blue-700"
+                            onClick={()=>navigateToTeamList(tournament)}>View Teams</button>
                         </div>
                       </div>
                     </div>

@@ -15,6 +15,10 @@ const tournamentSchema = new mongoose.Schema({
         ref: "User",
         required: true,
     },
+    numberOfRegisteredTeams:{
+        type: Number,
+        default: 0,
+    },
     // sport:{
     //     type: String,
     //     required: true,

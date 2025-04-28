@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { FaSignOutAlt, FaTimes, FaUserCircle } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/img/logo.png";
 import Profile from "../pages/Profile";
@@ -11,7 +10,7 @@ const Navbar = () => {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const {role}=useSelector((state) => state.auth);
+  const role=localStorage.getItem('role')
   console.log(role);
   const handleProfileClick = (e) => { 
     e.preventDefault();
@@ -53,7 +52,7 @@ const Navbar = () => {
               {[
                 { path: '/tournament', label: 'Tournament' },
                 { path: '/FindOpponent', label: 'Find Opponent' },
-                { path: '/AdminDashboard', label: 'Admin Dashboard' }
+                ...(role === 'admin' ? [{ path: '/AdminDashboard', label: 'Admin Dashboard' }] : []),
               ].map((item, index) => (
                 <Link
                   key={item.path}

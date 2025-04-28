@@ -1,4 +1,4 @@
-import { Phone, MapPin, User, Briefcase, Home } from 'lucide-react';
+import { Home, Phone, User } from 'lucide-react';
 import React from 'react';
 
 export default function PlayerCard({ player }) {
@@ -8,7 +8,7 @@ export default function PlayerCard({ player }) {
       <div className="w-full flex justify-center pt-6 pb-2">
         <div className="h-32 w-32 rounded-full overflow-hidden border-4 border-blue-100">
           <img
-            src={player.imageUrl || 'https://via.placeholder.com/200'}
+            src={player?.image?.secure_url || 'https://via.placeholder.com/200'}
             alt={`${player.name}`}
             className="w-full h-full object-cover object-center"
           />
