@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../component/Navbar";
 import RegistrationCars from "../component/RegistrationCars"; // small typo fixed (Cars -> Card)
 import axiosInstance from "../Helpers/axiousInstance";
 const Registration = () => {
+
+  const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
   const location = useLocation();
   const tournament = location.state?.tournament;
@@ -42,30 +44,31 @@ const Registration = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
-  
+
     const formDataToSend = new FormData();
     formDataToSend.append("teamName", formData.teamName);
     formDataToSend.append("tournamentId", formData.tournamentId);
     formDataToSend.append("userId", formData.userId);
-  
+
     // Filter out empty members
     const validTeamMembers = formData.teamMembers.filter(
       (member) => member.name && member.email && member.phone
     );
-  
+
     formDataToSend.append("teamMembers", JSON.stringify(validTeamMembers));
-  
+
     validTeamMembers.forEach((member, index) => {
       if (member.image) {
         formDataToSend.append(`memberImage_${index}`, member.image);
       }
     });
-  
+
     try {
       const response = await axiosInstance.post("/api/participant/register", formDataToSend);
       console.log(response.data);
       if (response.data.success) {
-        alert("Registration successful!");
+      
+        Navigate("/TeamList");
       } else {
         alert("Registration failed. Please try again.");
       }
@@ -73,7 +76,7 @@ const Registration = () => {
       console.error("Error submitting form:", error);
     }
   };
-  
+
 
   return (
     <div>
@@ -117,6 +120,7 @@ const Registration = () => {
           type="submit"
           className="w-full bg-indigo-600 text-white text-sm py-2 px-4 rounded hover:bg-indigo-700 transition"
           onClick={handleSubmit}
+
         >
           Register
         </button>
@@ -128,4 +132,4 @@ const Registration = () => {
 export default Registration;
 
 
-            
+

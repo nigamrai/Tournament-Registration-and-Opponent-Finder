@@ -8,14 +8,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-<<<<<<< HEAD
-    "start": "nodemon server.js",
-    "dev": "nodemon server.js" 
-    
-=======
     "start": "node server.js",
     "dev": "nodemon server.js"
->>>>>>> e9ff7c964c52fe3332f395ce21567f35f261276f
   },
   "keywords": [],
   "author": "",

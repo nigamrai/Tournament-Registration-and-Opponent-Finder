@@ -1,26 +1,3 @@
-<<<<<<< HEAD
-import { Routes, Route } from 'react-router-dom'
-import React, { useState } from 'react'
-
-import './App.css'
-import Login from './pages/Login'
-import AdminDashboard from './pages/CreateTournament'
-// import Register from './pages/Register'
-// import AdminLayout from './Layouts/AdminLayout'
-
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <Routes>
-      <Route path='/' element={<AdminDashboard />}> </Route>
-      <Route path='/login' element={<Login />}> </Route>
-    </Routes>
-
-
-
-  )
-=======
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import RegistrationCard from './component/RegistrationCars.jsx'
@@ -32,24 +9,29 @@ import Register from './pages/Register'
 import Registration from './pages/Registration'
 import Tournament from './pages/Tournament'
 import TournamentDetails from './pages/TournamentDetails'
+import TeamList from './pages/TeamList.jsx'
+import PlayerList from './pages/PlayerList.jsx'
 
 function App() {
- 
+
   return <>
-  
-  <Routes>
-    <Route path='/signup' element={<Register />}> </Route>
+
+    <Routes>
+      <Route path='/signup' element={<Register />}> </Route>
       <Route path='/' element={<Login />}> </Route>
-    <Route path="/tournament" element={<Tournament />} />
-    <Route path="/tournamentDetails" element={<TournamentDetails />} />
-    <Route path="/registration" element={<Registration />} />
-    <Route path="/adminDashboard" element={<AdminDashboard/>} />
-    <Route path="/registrationCard" element={<RegistrationCard />} />
-    <Route path="/FindOpponent" element={<FindOpponent />} />
-    <Route path="/tournament/create" element={<CreateTournament/>}/>
-  </Routes>
+      <Route path="/tournament" element={<Tournament />} />
+      <Route path="/tournamentDetails" element={<TournamentDetails />} />
+      <Route path="/registration" element={<Registration />} />
+      <Route path="/adminDashboard" element={<AdminDashboard />} />
+      <Route path="/registrationCard" element={<RegistrationCard />} />
+      <Route path="/FindOpponent" element={<FindOpponent />} />
+      <Route path="/tournament/create" element={<CreateTournament />} />
+      <Route path="/TeamList" element={<TeamList />} />
+      <Route path="/viewTeam" element={<PlayerList />} />
+
+
+    </Routes>
   </>
->>>>>>> e9ff7c964c52fe3332f395ce21567f35f261276f
 
 }
 export default App
