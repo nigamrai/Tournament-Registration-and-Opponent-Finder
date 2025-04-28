@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import { connectDB } from './config/DBConfig.js';
 import authRouter from './routes/authRoutes.js';
+import opponentRouter from './routes/oppponent.route.js';
 import participantRouter from './routes/participantRouter.js';
 import tournamentRouter from './routes/tournamentRoute.js';
 dotenv.config();
@@ -23,7 +24,7 @@ app.use(cors({
 app.use("/api/auth",authRouter);
 app.use("/api/tournament",tournamentRouter)
 app.use("/api/participant",participantRouter);
-
+app.use("/api/opponent",opponentRouter);
 app.listen(PORT,()=>{
     connectDB();
     console.log(`Server is running on port ${PORT}`);
