@@ -10,6 +10,11 @@ const tournamentSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
+    createdBy:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+    },
     // sport:{
     //     type: String,
     //     required: true,

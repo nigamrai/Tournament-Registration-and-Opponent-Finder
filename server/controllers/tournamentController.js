@@ -3,13 +3,13 @@ import Tournament from "../models/tournament.model.js";
 const registerTournament = async (req, res) => {
     console.log(req.body)
     const { title,  location, description,startDate,endDate,maxTeams,groundStyle,registrationFee,prizeDetails,
-        rules,format } = req.body;
+        rules,format,createdBy } = req.body;
     if (!description|| !title  || !startDate || !endDate || !location || !maxTeams  || !groundStyle || !registrationFee || !prizeDetails || !rules || !format ) {
 
         return res.status(400).json({ message: "All fields are required" });
     }
     const tournament = new Tournament({ title, startDate, endDate, location, maxTeams, groundStyle, registrationAmount:registrationFee, priceDetails:prizeDetails,
-        rules,  tournamentFormat:format ,description});
+        rules,  tournamentFormat:format ,description,createdBy });
         if (!tournament) {
             return res.status(500).json({ message: "Tournament registration failed" });
         }
@@ -43,5 +43,27 @@ const getAllTournaments = async (req, res) => {
         return res.status(500).json({ message: "Error fetching tournaments", error });
     }
 }
-export { getAllTournaments, registerTournament };
+const getTournamentById = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const tournaments = await Tournament.find({createdBy: id});
+      
+        if (!tournaments) {
+            return res.status(404).json({ message: "Tournament not found" });
+        }
+        return res.status(200).json({ success: true, tournaments });
+    } catch (error) {
+        return res.status(500).json({ message: "Error fetching tournament", error });
+    }
+}
+
+
+
+
+
+
+
+
+
+export { getAllTournaments, getTournamentById, registerTournament };
 

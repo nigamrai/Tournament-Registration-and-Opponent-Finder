@@ -9,10 +9,11 @@ function CreateTournament() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { loading, error } = useSelector((state) => state.auth);
-
+    const user = JSON.parse(localStorage.getItem("data"));
     const [tournamentData, setTournamentData] = useState({
         title: '',
         description: '',
+        createdBy: user._id,
         image: null,
         organizer: '',
         location: '',
