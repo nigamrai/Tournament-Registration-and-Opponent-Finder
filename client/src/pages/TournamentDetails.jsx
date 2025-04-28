@@ -3,22 +3,6 @@ import { FaCalendarAlt, FaFutbol, FaMapMarkedAlt, FaMoneyBillWave } from 'react-
 import { useLocation, useNavigate } from "react-router-dom";
 import HomeLayout from "../layouts/homeLayout";
 
-const tournament = [
-    {
-        id:1,
-        title:"Tournament 1",
-        date:"2023-01-01",
-        location:"Location 1",
-        format:"Format 1",
-        teams:"Teams 1",
-        description:"Description 1",
-        price:"Price 1",
-        numberOfPlayers: "Number of Players: 7"
-    }
-];
-
-
-
 const TournamentDetails = () => {
     const navigate = useNavigate();
     const location = useLocation();
