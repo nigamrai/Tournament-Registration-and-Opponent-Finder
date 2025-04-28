@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 const participantSchema = new mongoose.Schema({
-    Tournament: {
+    tournamentId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Tournament",
         required: true,
     },
-    user: {
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true,
@@ -18,21 +18,29 @@ const participantSchema = new mongoose.Schema({
         {
             name: {
                 type: String,
-                required: true,
+                
             },
             email: {
                 type: String,
-                required: true,
+                
             },
             phone: {
                 type: String,
-                required: true,
+                
             },
             role:{
                 type: String,
                 enum: ["Captain", "Player","Manager","Coach"],
                 default: "Player",
-            }
+            },
+            image: {
+                public_id: {
+                    type: String,
+                },
+                secure_url: {
+                    type: String,
+                },
+            },
         },
     ]
     

@@ -1,10 +1,10 @@
 import React from "react";
-import logo from "../assets/img/logo.png";
 import { Link } from "react-router-dom";
-import Tournament from "../pages/Tournament";
+import logo from "../assets/img/logo.png";
 
 
 const Navbar = () => {
+  const userRole = localStorage.getItem("role"); // Get the user role from local storage
     return(
         <nav className="bg-white shadow-sm">
   <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -24,10 +24,9 @@ const Navbar = () => {
         <img className="h-15 w-auto" src={logo} alt="let's Play" />
         </div>
         <div className="hidden sm:ml-6 sm:flex sm:space-x-4">
-          <a href="/dashboard" className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
           <Link to="/tournament" className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Tournament</Link>
-          <a href="/FindOpponent" className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Find Opponent</a>
-          <a href="/AdminDashboard" className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Admin Dashboard</a>
+          <a href="/findOpponent" className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Find Opponent</a>
+          <a href="/adminDashboard" className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Admin Dashboard</a>
         </div>
       </div>
 

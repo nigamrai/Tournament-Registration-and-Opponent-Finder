@@ -1,12 +1,11 @@
-import { useState } from 'react';
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { toast } from 'react-hot-toast';
 import { login } from '../Redux/Slices/AuthSlice';
-import BackgroundImage from '../assets/viber.webp';
 import logo from '../assets/logo.png';
+import BackgroundImage from '../assets/viber.webp';
 
 function Login() {
     const dispatch = useDispatch();
@@ -44,7 +43,7 @@ function Login() {
                 console.log("User Role:", userRole);
 
                 if (userRole === "user") {
-                    navigate("/superAdmin");
+                    navigate("/tournament");
 
                 }
 

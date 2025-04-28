@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import express from 'express';
 import { connectDB } from './config/DBConfig.js';
 import authRouter from './routes/authRoutes.js';
+import participantRouter from './routes/participantRouter.js';
+import tournamentRouter from './routes/tournamentRoute.js';
 dotenv.config();
 cloudinary.config({
     cloud_name: 'dgbxiu8yj',
@@ -19,6 +21,8 @@ app.use(cors({
     credentials: true,
 }))
 app.use("/api/auth",authRouter);
+app.use("/api/tournament",tournamentRouter)
+app.use("/api/participant",participantRouter);
 
 app.listen(PORT,()=>{
     connectDB();
