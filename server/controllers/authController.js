@@ -58,5 +58,9 @@ const signup=async (req, res) => {
     
     return res.status(201).json({ success: true,message:"User created successfully" ,user});
 }
-export { login, signup };
+const logout=async (req, res) => {
+    res.clearCookie("token", { httpOnly: true });
+    return res.status(200).json({ success: true, message: "User logged out successfully" });
+}
+export { login, logout, signup };
 

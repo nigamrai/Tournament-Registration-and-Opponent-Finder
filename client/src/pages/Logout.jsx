@@ -1,35 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { FaSignOutAlt, FaUserCircle } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-
+import { logout } from '../Redux/Slices/AuthSlice';
 const Logout = () => {
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+   
 
-    useEffect(() => {
-        // Get user data from localStorage
-        const userData = localStorage.getItem('user');
-        if (userData) {
-            setUser(JSON.parse(userData));
-        } else {
-            navigate('/');
-        }
-    }, [navigate]);
-
-    const handleLogout = () => {
+    const handleLogout = async() => {
         setIsLoading(true);
-        
-        // Simulate API call delay
-        setTimeout(() => {
-            // Clear user data from localStorage
-            localStorage.removeItem('user');
-            localStorage.removeItem('token');
-            
-            // Redirect to login page
-            navigate('/');
-        }, 1500);
-    };
+        try {
+            const response =await dispatch(logout());
+            console.log(response.data);
+            if (response.data.success) {
+                console.log("Logout successful");
+                navigate("/"); // Redirect to the login page
+            }
+    }catch (error) {
+            console.error("Error logging out:", error); 
+    }
+}
 
     if (!user) return null;
 
@@ -53,7 +45,7 @@ const Logout = () => {
 
                     <div className="space-y-4">
                         <button
-                            onClick={handleLogout}
+                            onClick={() => handleLogout()}
                             disabled={isLoading}
                             className="w-full flex items-center justify-center space-x-2 bg-red-600 hover:bg-red-700 text-white font-medium px-6 py-3 rounded-lg transition-colors duration-200"
                         >
@@ -80,5 +72,6 @@ const Logout = () => {
         </div>
     );
 };
+
 
 export default Logout;
