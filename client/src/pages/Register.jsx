@@ -62,7 +62,7 @@ function Register() {
             const response = await dispatch(register(data));
             if (response.payload?.success) {
                 toast.success("Registered successfully!");
-                navigate("/login");
+                navigate("/");
             }
         } catch (error) {
             toast.error("Registration failed");
