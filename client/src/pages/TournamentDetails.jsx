@@ -1,6 +1,21 @@
 import React from "react";
+import { FaCalendarAlt, FaFutbol, FaMapMarkedAlt, FaMoneyBillWave } from 'react-icons/fa';
 import { useLocation, useNavigate } from "react-router-dom";
 import HomeLayout from "../layouts/homeLayout";
+
+const tournament = [
+    {
+        id:1,
+        title:"Tournament 1",
+        date:"2023-01-01",
+        location:"Location 1",
+        format:"Format 1",
+        teams:"Teams 1",
+        description:"Description 1",
+        price:"Price 1",
+        numberOfPlayers: "Number of Players: 7"
+    }
+];
 
 
 
@@ -37,30 +52,35 @@ const TournamentDetails = () => {
                 </div>  
                 <div className="flex-1 p-4 border">
                 <div>
-                        <p>Date:-</p>
+                        <p className="flex items-center gap-2">
+                            <FaCalendarAlt /> Date:-</p>
                         <p>{tournament.startDate}</p>
                     </div>
                     <div>
-                        <p>Format:-</p>
+                        <p className="flex items-center gap-2">
+                            <FaFutbol /> Format:-</p>
                         <p>{tournament.tournamentFormat}</p>
                     </div>
                     <div>
-                        <p>Location:-</p>
+                        <p className="flex items-center gap-2">
+                            <FaMapMarkedAlt /> Location:-</p>
                         <p>{tournament.location}</p>
                     </div>
                     <div>
-                        <p>GroundStyle:-</p>
+                        <p className="flex items-center gap-2">
+                            <FaFutbol /> GroundStyle:-</p>
                         <p>{tournament.groundStyle}</p>
                     </div>
                     <div>
-                        <p>Registration fee:-</p>
+                        <p className="flex items-center gap-2">
+                            <FaMoneyBillWave /> Registration fee:-</p>
                         <p>{tournament.registrationAmount}</p>
                     </div>
                     <div>
                         <p>Max Teams:-</p>
                         <p>{tournament.maxTeams}</p>
                     </div>
-                    <button className="bg-indigo-600 text-white text-sm py-1 px-3 rounded hover:bg-blue-700" onClick={navigateToRegistration}>Register</button>
+                    <button className="w-36 bg-indigo-600 text-white text-sm py-1 px-3 rounded hover:bg-blue-700" onClick={navigateToRegistration}>Register</button>
 
                 </div>              
             </div>
