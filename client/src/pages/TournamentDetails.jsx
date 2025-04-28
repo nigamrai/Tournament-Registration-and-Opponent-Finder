@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import RegistrationCard from "../component/RegistrationCars";
+import {FaCalendarAlt, FaMapMarkedAlt, FaFutbol, FaMoneyBillWave, FaUsers} from 'react-icons/fa';
 
 const tournament = [
     {
@@ -47,30 +48,36 @@ const TournamentDetails = () => {
                 </div>  
                 <div className="flex-1 p-4 border">
                 <div>
-                        <h1>Date:-</h1><br />
+                        <h1 className="flex items-center gap-2">
+                            <FaCalendarAlt /> Date:-</h1><br />
                         <p>{tournament.date}</p>
                     </div>
                     <div>
-                        <h1>Format:-</h1><br />
+                        <h1 className="flex items-center gap-2">
+                            <FaFutbol /> Format:-</h1><br />
                         <p>{tournament.format}</p>
                     </div>
                     <div>
-                        <h1>Location:-</h1><br />
+                        <h1 className="flex items-center gap-2">
+                            <FaMapMarkedAlt /> Location:-</h1><br />
                         <p>{tournament.location}</p>
                     </div>
                     <div>
-                        <h1>GroundStyle:-</h1><br />
+                        <h1 className="flex items-center gap-2">
+                            <FaFutbol /> GroundStyle:-</h1><br />
                         <p>{tournament.rulesgroundStyle}</p>
                     </div>
                     <div>
-                        <h1>Registration fee:-</h1><br />
+                        <h1 className="flex items-center gap-2">
+                            <FaMoneyBillWave /> Registration fee:-</h1><br />
                         <p>{tournament.registrationAmount}</p>
                     </div>
                     <div>
-                        <h1>Numbers of Players:-</h1><br />
+                        <h1 className="flex items-center gap-2">
+                            <FaUsers /> Numbers of Players:-</h1><br />
                         <p>{tournament.numberOfPlayers}</p>
                     </div>
-                    <button className="bg-indigo-600 text-white text-sm py-1 px-3 rounded hover:bg-blue-700" onClick={navigateToRegistration}>Register</button>
+                    <button className="w-36 bg-indigo-600 text-white text-sm py-1 px-3 rounded hover:bg-blue-700" onClick={navigateToRegistration}>Register</button>
 
                 </div>              
             </div>
