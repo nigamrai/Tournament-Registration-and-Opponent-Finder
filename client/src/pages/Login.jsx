@@ -6,6 +6,7 @@ import { toast } from 'react-hot-toast';
 import { login } from '../Redux/Slices/AuthSlice';
 import logo from '../assets/logo.png';
 import BackgroundImage from '../assets/viber.webp';
+import { Link } from 'react-router-dom';
 
 function Login() {
     const dispatch = useDispatch();
@@ -33,9 +34,19 @@ function Login() {
             toast.error("Please fill all the details");
             return;
         }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if(!emailRegex.test(email)){
+            toast.error("Please enter a valid email address");
+            return;
+        }
+
+        if(password.length < 6) {
+            toast.error("Password must be at least 7 characters long");
+            return;
+        }
         try {
             const response = await dispatch(login(loginData));
-
             if (response.payload?.success) {
                 toast.success("Login successful!");
 
@@ -127,6 +138,9 @@ function Login() {
                     >
                         SIGN IN
                     </button>
+                    <div className="text-sm mt-2 ms-23">
+                        Don't have an account? <Link to="/signup" className="text-blue-600 hover:underline">Sign Up</Link>
+                    </div>
                 </form>
             </div>
         </div>

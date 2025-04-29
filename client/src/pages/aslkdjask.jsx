@@ -19,7 +19,6 @@ function Register() {
         address: "",
         role: "user",
         password: "",
-        confirmPassword: "",
     });
 
     const handleChange = (e) => {
@@ -40,30 +39,8 @@ function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Basic required field validation
         if (!formData.name || !formData.email || !formData.phoneNumber || !formData.address || !formData.password) {
             toast.error("Please fill all fields");
-            return;
-        }
-
-        // Name validation (2-50 characters, letters and spaces only)
-        const nameRegex = /^[A-Za-z\s]{2,50}$/;
-        if (!nameRegex.test(formData.name.trim())) {
-            toast.error("Name should be 2-50 characters long and contain only letters and spaces");
-            return;
-        }
-
-        // Email validation
-        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (!emailRegex.test(formData.email)) {
-            toast.error("Please enter a valid email address");
-            return;
-        }
-
-        // Password validation (min 8 chars, at least 1 uppercase, 1 lowercase, 1 number, 1 special char)
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-        if (!passwordRegex.test(formData.password)) {
-            toast.error("Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character");
             return;
         }
 
@@ -72,36 +49,8 @@ function Register() {
             return;
         }
 
-        // Phone number validation (10-15 digits, can start with +)
-        const phoneNumberRegex = /^\+?[0-9]{10,15}$/;
-        if (!phoneNumberRegex.test(formData.phoneNumber.trim())) {
-            toast.error("Please enter a valid phone number (10-15 digits, can start with +)");
-            return;
-        }
-
-        // Address validation (minimum 5 characters, maximum 100)
-        if (formData.address.trim().length < 5 || formData.address.trim().length > 100) {
-            toast.error("Address should be between 5 and 100 characters");
-            return;
-        }
-
-        // Profile image validation
         if (!profileImage) {
             toast.error("Please upload profile picture");
-            return;
-        }
-
-        // Image size and type validation
-        const maxSize = 5 * 1024 * 1024; // 5MB
-        const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-        
-        if (!allowedTypes.includes(profileImage.type)) {
-            toast.error("Please upload an image file (JPEG, PNG, or JPG)");
-            return;
-        }
-
-        if (profileImage.size > maxSize) {
-            toast.error("Image size should be less than 2MB");
             return;
         }
 
@@ -122,10 +71,10 @@ function Register() {
 
     return (
         <div
-            className=" min-h-screen flex items-center justify-center p-4 bg-cover bg-center"
+            className="min-h-screen flex items-center justify-center p-4 bg-cover bg-center"
             style={{ backgroundImage: `url(${BackgroundImage})` }}
         >
-            <div className="bg-white/80 rounded-2xl shadow-2xl p-8 w-full max-w-xl shadow-blue-800 animate-shadow-expand">
+            <div className="bg-white/80 rounded-2xl shadow-2xl p-8 w-full max-w-xl">
 
                 {/* Header */}
                 <div className="text-center mb-8">
@@ -257,7 +206,7 @@ function Register() {
                     {/* Submit Button */}
                     <button
                         type="submit"
-                        className="w-full bg-blue-600 text-white py-2.5 rounded-md font-bold mt-6 cursor-pointer"
+                        className="w-full bg-blue-600 text-white py-2.5 rounded-md font-bold mt-6"
                     >
                         Register
                     </button>
@@ -265,7 +214,7 @@ function Register() {
                     {/* Login Link */}
                     <p className="text-center mt-4">
                         Already have an account?{" "}
-                        <a href="/" className="text-blue-600 font-medium">Login</a>
+                        <a href="/login" className="text-blue-600 font-medium">Login</a>
                     </p>
                 </form>
             </div>

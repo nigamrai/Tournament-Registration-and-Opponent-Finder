@@ -43,6 +43,55 @@ function CreateTournament() {
         });
     };
 
+    const validateForm = () => {
+        const { title, description, image, organizer, location, startDate, endDate, format, groundStyle, tournamentStyle, maxTeams, registrationFee, prizeDetails, rules } = tournamentData;
+
+        if(!title.trim()){
+            toast.error("Title is required");
+            return false;
+        }
+        if(!description.trim()){
+            toast.error("Description is required");
+        }
+        if(!image){
+            toast.error("Image is required");
+        }
+        if(!organizer){
+            toast.error("Organizer is required");
+        }
+        if(!location){
+            toast.error("Location is required");
+        }
+        if(!startDate){
+            toast.error("Start date is required");
+        }
+        if(!endDate){
+            toast.error("End date is required");
+        }
+        if(!format){
+            toast.error("Format is required");
+        }
+        if(!groundStyle){
+            toast.error("Ground style is required");
+        }
+        if(!tournamentStyle){
+            toast.error("Tournament style is required");
+        }
+        if(!maxTeams){
+            toast.error("Max teams is required");
+        }
+        if(!registrationFee){
+            toast.error("Registration fee is required");
+        }
+        if(!prizeDetails){
+            toast.error("Prize details is required");
+        }
+        if(!rules){
+            toast.error("Rules is required");
+        }
+        return null;
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 

@@ -2,7 +2,7 @@ import cloudinary from 'cloudinary';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
-import { connectDB } from './config/DBConfig.js';
+import connectDB  from './config/DBConfig.js';
 import authRouter from './routes/authRoutes.js';
 import opponentRouter from './routes/oppponent.route.js';
 import participantRouter from './routes/participantRouter.js';
