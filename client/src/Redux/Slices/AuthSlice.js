@@ -10,6 +10,7 @@ const initialState = {
     loading: false,
     error: null,
     tournamentData: null,
+    
 };
 
 export const register = createAsyncThunk(
@@ -48,15 +49,15 @@ export const login = createAsyncThunk(
 
 export const logout = createAsyncThunk(
     "/auth/logout",
-    async () => {
+    async (_, { rejectWithValue }) => {
         try {
-            const res = await axiosInstance.post("");
+            const res = await axiosInstance.post("/api/auth/logout");
             toast.success(res?.data?.message || "Logged out successfully!");
             return res.data;
         } catch (error) {
             const message = error?.response?.data?.message || "Logout failed";
             toast.error(message);
-            throw error;
+            return rejectWithValue(message); // <-- instead of throw error
         }
     }
 );
@@ -81,7 +82,7 @@ export const createTournament = createAsyncThunk(
 );
 
 export const getTournament = createAsyncThunk(
-    "course/getAllCourses",
+    "tournament/getAllTournament",
     async (_, { rejectWithValue }) => {
         try {
             // First, show loading state
@@ -102,7 +103,46 @@ export const getTournament = createAsyncThunk(
     }
 );
 
+export const getTeamList = createAsyncThunk(
+    "list/getAllList",
+    async (_, { rejectWithValue }) => {
+        try {
+            // First, show loading state
+            toast.loading("Loading Team");
 
+            const response = await axiosInstance.get("/api/auth/getList");
+
+            // Update toast to success
+            toast.success("Team loaded successfully");
+
+            console.log("API Response:", response.data);
+            return response?.data?.Team || [];
+        } catch (error) {
+            const errorMessage = error?.response?.data?.message || "An unexpected error occurred";
+            toast.error(errorMessage);
+            return rejectWithValue(errorMessage);
+        }
+    }
+);
+
+export const getPlayerList = createAsyncThunk(
+    "list/getPlayerList",
+    async (_, { rejectWithValue }) => {
+        try { 
+            toast.loading("Loading Player");
+
+            const response = await axiosInstance.get("/api/auth/getPlayer");
+            toast.success("Team loaded successfully");
+
+            console.log("API Response:", response.data);
+            return response?.data?.player || [];
+        } catch (error) {
+            const errorMessage = error?.response?.data?.message || "An unexpected error occurred";
+            toast.error(errorMessage);
+            return rejectWithValue(errorMessage);
+        }
+    }
+);
 
 
 
@@ -119,7 +159,7 @@ const authSlice = createSlice({
                 localStorage.setItem("data", JSON.stringify(user));
                 localStorage.setItem("isLoggedIn", "true");
                 localStorage.setItem("role", user?.role || "");
-
+                localStorage.setItem("token", action?.payload?.token || "");
                 state.isLoggedIn = true;
                 state.data = user;
                 state.role = user?.role || "";
@@ -155,7 +195,35 @@ const authSlice = createSlice({
             .addCase(getTournament.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.payload;
+            })
+
+
+            .addCase(getTeamList.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(getTeamList.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                state.courses = action.payload;
+            })
+            .addCase(getTeamList.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.payload;
+            })
+
+            .addCase(getPlayerList.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(getPlayerList.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                state.courses = action.payload;
+            })
+            .addCase(getPlayerList.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.payload;
             });
+
+
+
 
 
 

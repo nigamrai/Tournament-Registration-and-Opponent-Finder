@@ -45,9 +45,10 @@ const getAllTournaments = async (req, res) => {
 }
 const getTournamentById = async (req, res) => {
     const { id } = req.params;
+    console.log(id)
     try {
         const tournaments = await Tournament.find({createdBy: id});
-      
+      console.log(tournaments)
         if (!tournaments) {
             return res.status(404).json({ message: "Tournament not found" });
         }
