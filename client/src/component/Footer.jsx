@@ -1,9 +1,10 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { FaEnvelope, FaFacebook, FaInstagram, FaMapMarkerAlt, FaPhone, FaTwitter } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
-    return (
+     return (
         <footer className="bg-gray-900 text-gray-300">
             <div className="max-w-7xl mx-auto px-4 py-12">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -42,40 +43,7 @@ const Footer = () => {
                         </ul>
                     </div>
 
-                    {/* Contact Info */}
-                    <div>
-                        <h3 className="text-white text-lg font-semibold mb-4">Contact Us</h3>
-                        <ul className="space-y-2">
-                            <li className="flex items-center gap-2 text-sm">
-                                <FaPhone className="text-indigo-500" />
-                                <span>+977 9823232323</span>
-                            </li>
-                            <li className="flex items-center gap-2 text-sm">
-                                <FaEnvelope className="text-indigo-500" />
-                                <span>info@tournament.com</span>
-                            </li>
-                            <li className="flex items-center gap-2 text-sm">
-                                <FaMapMarkerAlt className="text-indigo-500" />
-                                <span>Kathmandu, Nepal</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    {/* Social Links */}
-                    <div>
-                        <h3 className="text-white text-lg font-semibold mb-4">Follow Us</h3>
-                        <div className="flex space-x-4">
-                            <a href="#" className="hover:text-white transition-colors">
-                                <FaFacebook size={24} />
-                            </a>
-                            <a href="#" className="hover:text-white transition-colors">
-                                <FaTwitter size={24} />
-                            </a>
-                            <a href="#" className="hover:text-white transition-colors">
-                                <FaInstagram size={24} />
-                            </a>
-                        </div>
-                    </div>
+                   
                 </div>
 
                 {/* Copyright */}
